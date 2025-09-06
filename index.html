@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Path of Purity: A Workshop for Muslim Youth</title>
+    <style>
+        /* --- Google Fonts --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+
+        /* --- CSS Variables for Theming --- */
+        :root {
+            --bg-color: #f4f7f9;
+            --text-color: #333;
+            --primary-color: #2a9d8f;
+            --secondary-color: #e9c46a;
+            --accent-color: #f4a261;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --quote-bg: #e8f5e9;
+            --arabic-font: 'Amiri', serif;
+            --body-font: 'Poppins', sans-serif;
+        }
+
+        .dark-mode {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --primary-color: #48bfe3;
+            --secondary-color: #f7b801;
+            --accent-color: #f28482;
+            --card-bg: #1e1e1e;
+            --border-color: #444;
+            --quote-bg: #2c3e50;
+        }
+
+        /* --- General Styles & Reset --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 120px 20px 40px 20px;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        section, .mind-map-container {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+
+        /* --- Typography --- */
+        h1, h2, h3, h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+        h1 { font-size: 2.8rem; text-align: center; margin-bottom: 2rem; }
+        h2 { font-size: 2.2rem; border-bottom: 3px solid var(--secondary-color); padding-bottom: 10px; margin-top: 3rem; }
+        h3 { font-size: 1.6rem; color: var(--accent-color); margin-top: 2rem; }
+        h4 { font-size: 1.2rem; color: var(--primary-color); margin-top: 1.5rem; }
+        p { margin-bottom: 1rem; }
+        a { color: var(--primary-color); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        
+        .arabic { 
+            font-family: var(--arabic-font); 
+            font-size: 1.2em;
+            font-style: italic;
+            color: var(--primary-color);
+        }
+
+        blockquote {
+            background-color: var(--quote-bg);
+            border-left: 5px solid var(--secondary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+            font-style: italic;
+            transition: background-color 0.3s;
+        }
+        
+        /* --- Navigation Bar --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links > li {
+            position: relative;
+        }
+
+        .nav-links > li > a, .nav-links > li > span {
+            display: block;
+            padding: 1.5rem 1rem;
+            color: var(--text-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .nav-links > li:hover > a, .nav-links > li:hover > span {
+            color: var(--primary-color);
+        }
+
+        .dropdown {
+            list-style: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 0 0 5px 5px;
+            min-width: 250px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+        }
+        
+        .nav-links > li:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown li a {
+            display: block;
+            padding: 0.8rem 1.2rem;
+            color: var(--text-color);
+            white-space: nowrap;
+        }
+
+        .dropdown li a:hover {
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+        }
+        
+        /* --- Theme Toggle Switch --- */
+        .theme-switch-wrapper {
+          display: flex;
+          align-items: center;
+          background: var(--border-color);
+          border-radius: 20px;
+          padding: 3px;
+          cursor: pointer;
+        }
+        .theme-icon {
+            padding: 0 5px;
+            font-size: 1rem;
+        }
+        #theme-toggle-btn {
+            width: 22px;
+            height: 22px;
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .dark-mode .theme-switch-wrapper {
+            flex-direction: row-reverse;
+        }
+
+        /* --- Content Styling --- */
+        .activity-box {
+            background-color: var(--card-bg);
+            border: 2px dashed var(--accent-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+        
+        tbody tr:nth-child(even) {
+            background-color: var(--quote-bg);
+        }
+        tbody tr:hover {
+            background-color: var(--secondary-color);
+            color: #333;
+        }
+
+        /* --- Mind Map Styling --- */
+        .mind-map-container {
+            margin: 4rem auto;
+            padding: 2rem;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .mind-map-title {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            margin-bottom: 2rem;
+        }
+        .mind-map-core {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .mind-map-branches {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .mind-map-branch {
+            background: var(--quote-bg);
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid var(--border-color);
+            min-width: 150px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .mind-map-branch:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .mind-map-branch h4 {
+            color: var(--accent-color);
+            margin: 0 0 5px 0;
+            font-size: 1.1rem;
+        }
+        
+        /* --- Responsive Design --- */
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none; 
+            }
+             .nav-logo {
+                flex-grow: 1;
+                text-align: center;
+            }
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 100px 15px 20px 15px;
+            }
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.8rem; }
+            .mind-map-branches { flex-direction: column; align-items: center; }
+        }
+
+        
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-logo">Path of Purity</div>
+        <ul class="nav-links">
+            <li>
+                <span>Taharah (Purity)</span>
+                <ul class="dropdown">
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#nullifiers">Nullifiers of Purity</a></li>
+                    <li><a href="#wudu">Wudu (Ablution)</a></li>
+                    <li><a href="#ghusl">Ghusl (Ritual Bath)</a></li>
+                </ul>
+            </li>
+            <li>
+                <span>Modern Challenges</span>
+                <ul class="dropdown">
+                    <li><a href="#digital-pandemic">Digital Pandemic</a></li>
+                    <li><a href="#believers-toolkit">The Believer's Toolkit</a></li>
+                    <li><a href="#life-of-ihsan">A Life of Ihsan</a></li>
+                </ul>
+            </li>
+            <li>
+                <span>Daily Life Guide</span>
+                <ul class="dropdown">
+                    <li><a href="#hh-intro">Intro: Mercy of Rulings</a></li>
+                    <li><a href="#hh-food">Food & Drink</a></li>
+                    <li><a href="#hh-social">Social World</a></li>
+                    <li><a href="#hh-entertainment">Entertainment & Gaming</a></li>
+                    <li><a href="#hh-appearance">Appearance & Identity</a></li>
+                </ul>
+            </li>
+             <li>
+                <span>Friendship</span>
+                <ul class="dropdown">
+                    <li><a href="#friendship-impact">Impact of Friendship</a></li>
+                    <li><a href="#friendship-compass">The Friend's Compass</a></li>
+                    <li><a href="#friendship-real-world">Friendship in the Real World</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="nav-controls">
+            <div class="theme-switch-wrapper" id="theme-switch">
+                <span class="theme-icon">☀️</span>
+                <div id="theme-toggle-btn"></div>
+                <span class="theme-icon">🌙</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <header>
+            <h1>The Path of Purity</h1>
+            <p style="text-align: center; font-size: 1.2rem; color: var(--accent-color);">A Workshop for Muslim Youth on Taharah and Facing the Challenges of Modern Life (According to the Shafi'i Madhhab)</p>
+        </header>
+
+        <section id="introduction">
+            <h2>Introduction: The Power of Purity – More Than Just Cleanliness</h2>
+            <p>The concept of purity (<span class="arabic">الطهارة</span> - Taharah) in Islam extends beyond the limits of ordinary physical hygiene; it is a fundamental pillar of a Muslim's identity and their relationship with their Lord. Islam does not view cleanliness merely as an aesthetic or behavioral value but elevates it to the status of a ritual act of worship that encompasses both the body and the soul.¹ The goal of this workshop is to reframe the concept of purity in the minds of the youth, transforming it from a mere set of jurisprudential rulings into a source of spiritual strength, a means of connecting with Allah, and a cornerstone for building a confident Muslim personality. This workshop bases its legal rulings on the Shafi'i school of thought, one of the four recognized Sunni madhhabs, which is widespread among Muslims worldwide.</p>
+            <p>The foundational principle of this workshop is the noble prophetic hadith narrated by Abu Malik al-Ash'ari (may Allah be pleased with him), in which the Messenger of Allah (peace and blessings be upon him) said:</p>
+            <blockquote>"<span class="arabic">الطُّهُورُ شَطْرُ الْإِيمَانِ</span>" (At-tuhuru shatrul-iman - "Purity is half of faith").¹</blockquote>
+            <p>This hadith is not just a rhetorical statement; it is a foundational rule clarifying that complete faith consists of two inseparable halves: the purity of the inner self (the heart from polytheism, showing off, and envy) and the purity of the outer self (the body from ritual impurities and filth).</p>
+            <p>Furthermore, purity is a means to attain the love of Allah the Exalted, which is the greatest aspiration of a believer. Allah Almighty says in His noble book:</p>
+            <blockquote>{<span class="arabic">إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ</span>} ({Inna Allaha yuhibbu at-tawwabina wa yuhibbu al-mutatahhirin} - "Indeed, Allah loves those who are constantly repentant and loves those who purify themselves") [Al-Baqarah: 222].⁴</blockquote>
+            <p>So, every time a young Muslim purifies himself, he is not just cleaning his body but taking a step toward attaining this great divine love.</p>
+            <p>The relationship between outer purity and inner purity is causal in the Islamic perspective. Discipline in applying the rulings of physical purity, such as ablution (Wudu) and the ritual bath (Ghusl), is practical and continuous training for spiritual discipline. Negligence in physical purity, such as not cleaning oneself properly after urinating, has been reported as a cause for punishment in the grave,⁵ which confirms that this physical act has profound spiritual dimensions. Therefore, we will build our workshop around the metaphor of the "Fortress of Purity"; in the first part, we will build the outer walls of the fortress (purity of the body), and in the second part, we will strengthen the inner citadel of the fortress (purity of the soul).</p>
+        </section>
+
+        <!-- START: TAHARAH SECTION -->
+        <section>
+            <h2>Part One: The Fortress of the Body – Mastering Physical Purity</h2>
+
+            <section id="nullifiers">
+                <h3>Section 1.1: The Law of Purity – Understanding Its Nullifiers</h3>
+                <p>To achieve ritual purity, a precise understanding of the legal terms that define our state of worship is necessary. The goal of this section is to provide clear and direct definitions of impurity and ritual impurity, and to equip the youth with the necessary knowledge to deal with the natural physiological changes of puberty according to the rulings of Shari'ah.</p>
+                
+                <h4>Definition of Basic Terms</h4>
+                <ul>
+                    <li><strong><span class="arabic">الطهارة</span> (Taharah):</strong> Linguistically, it means cleanliness and freedom from filth.⁷ Technically, the jurists have defined it as: "The removal of the state of ritual impurity (Hadath) and the removal of filth (Khabath)."⁴</li>
+                    <li><strong><span class="arabic">الحدث</span> (Hadath):</strong> It is a spiritual state of the body that prevents the validity of acts of worship that require purity, such as prayer.⁴ It is not a tangible, physical thing, but a legal state. It is divided into two types:
+                        <ul>
+                            <li><strong>Minor Ritual Impurity (<span class="arabic">الحدث الأصغر</span> - Al-Hadath al-Asghar):</strong> That which necessitates ablution (Wudu), such as the passing of urine or wind.⁴</li>
+                            <li><strong>Major Ritual Impurity (<span class="arabic">الحدث الأكبر</span> - Al-Hadath al-Akbar):</strong> That which necessitates a full ritual bath (Ghusl), such as the state of sexual impurity (Janabah).⁵</li>
+                        </ul>
+                    </li>
+                    <li><strong><span class="arabic">الخبث أو النجاسة</span> (Khabath/Najasa):</strong> It is a substance that is considered filthy by the Shari'ah, such as urine and feces, and it must be removed from the body, clothes, and the place of prayer.⁵</li>
+                </ul>
+
+                <h4>A Guide to Male Secretions at Puberty</h4>
+                <p>The changes that occur in a young man's body during puberty are a sign of health and maturity, and Islam has established clear rulings for them that remove embarrassment and confusion. Differentiating between the types of secretions and their rulings is not a complication, but rather evidence of the comprehensiveness and mercy of the Shari'ah, as it teaches a young man to be mindful and attentive to his body and its relation to his worship.</p>
+                <p><strong><span class="arabic">المذي</span> (Al-Madhy):</strong> A thin, clear, viscous fluid that is discharged upon foreplay or thinking about sexual desire. A person may not even feel it being discharged.¹² Its Ruling: It is impure (Najis) by the consensus of scholars.¹⁴ How to Purify from it: It nullifies Wudu. To purify from it, one must wash the entire penis and the testicles (al-Unthayayn), and sprinkle water on the part of the clothing that it has touched. It does not necessitate Ghusl.¹² The command to wash the entire penis and testicles, even though the Madhy may not have touched them, is a devotional act with profound wisdom in calming desire and returning the body to a state of tranquility. It is practical training in managing desires through a conscious act of purification.</p>
+                <p><strong><span class="arabic">الودي</span> (Al-Wady):</strong> A thick, white fluid that is often discharged after urination, especially after exhaustion or carrying something heavy.¹² Its Ruling: It is impure (Najis). How to Purify from it: Its ruling is exactly the same as that of urine. The affected area must be washed (Istinja), and it necessitates Wudu afterward. It does not necessitate Ghusl.¹³</p>
+                <p><strong><span class="arabic">المني</span> (Al-Mani):</strong> A thick, white fluid that is ejaculated with force and gushing at the peak of sexual arousal, as happens during a wet dream (ihtilam).¹⁹ Its Ruling: It is pure (Tahir) in the Shafi'i madhhab, but it is recommended to wash it if it is wet and scrape it off if it is dry, as a matter of cleanliness and refinement, not to remove impurity.⁶⁴ What it necessitates: Its discharge necessitates Ghusl, and the person enters a state of major ritual impurity (Janabah).²²</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name (Arabic & English)</th>
+                            <th>Description & Cause</th>
+                            <th>Ruling of the Fluid</th>
+                            <th>What it Nullifies</th>
+                            <th>How to Purify the Body</th>
+                            <th>How to Purify the Garment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong><span class="arabic">المني</span> (Semen)</strong></td>
+                            <td>A thick, white fluid ejaculated forcefully at the peak of arousal (e.g., wet dream).</td>
+                            <td>Pure (Tahir) in the Shafi'i Madhhab ⁶⁴</td>
+                            <td>Requires Ghusl</td>
+                            <td>A complete bath (Ghusl) for the entire body.</td>
+                            <td>Scraped if dry, washed if wet (for cleanliness).</td>
+                        </tr>
+                        <tr>
+                            <td><strong><span class="arabic">المذي</span> (Pre-seminal fluid)</strong></td>
+                            <td>A thin, clear, sticky fluid discharged at the onset of arousal (thoughts or foreplay).</td>
+                            <td>Impure (Najis)</td>
+                            <td>Voids Wudu only</td>
+                            <td>Wash the entire penis and the testicles.</td>
+                            <td>Sprinkle the affected area with water.</td>
+                        </tr>
+                        <tr>
+                            <td><strong><span class="arabic">الودي</span> (Post-urinal fluid)</strong></td>
+                            <td>A thick, white fluid that is (often) discharged after urination.</td>
+                            <td>Impure (Najis)</td>
+                            <td>Voids Wudu only</td>
+                            <td>Wash the affected area (like Istinja from urine).</td>
+                            <td>Wash the affected area (like urine).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            
+            <section id="wudu">
+                <h3>Section 1.2: Wudu – The Key to Prayer and Light upon Light</h3>
+                <p>Wudu (ablution) is not just a routine cleaning process; it is a magnificent act of worship and a great door to the expiation of sins and the elevation of ranks. It is the moment when the believer prepares to meet his Lord, purifying his limbs so they are worthy of standing before Allah.</p>
+                <h4>Spiritual Virtues of Wudu</h4>
+                <p>Contemplating the virtues of Wudu transforms it from an ordinary act into a renewed spiritual experience. The Prophet (peace and blessings be upon him) informed us that Wudu erases sins. 'Uthman ibn 'Affan (may Allah be pleased with him) narrated that the Prophet (peace and blessings be upon him) said:</p>
+                <blockquote>"<span class="arabic">مَنْ تَوَضَّأَ فَأَحْسَنَ الْوُضُوءَ، خَرَجَتْ خَطَايَاهُ مِنْ جَسَدِهِ حَتَّى تَخْرُجَ مِنْ تَحْتِ أَظْفَارِهِ</span>" (Man tawadda’a fa-ahsana al-wudu’a, kharajat khatayahu min jasadihi hatta takhruja min tahti azfarih - "Whoever performs Wudu and perfects it, his sins will depart from his body, even from under his nails") (Narrated by Muslim).³</blockquote>
+                <p>With every drop of water that falls from the limbs of Wudu, the sins committed by those limbs fall away, and the Muslim emerges from his ablution pure, ready to commune with his Lord.</p>
+                
+                <h4>The Pillars of Wudu in the Shafi'i Madhhab</h4>
+                <p>Before we detail the complete method of Wudu, it is important to know the pillars (Arkan or Fara'id), without which Wudu is invalid in the Shafi'i school. They are six:⁶⁵</p>
+                <ol>
+                    <li>The Intention (<span class="arabic">النية</span> - An-Niyyah): When washing the first part of the face.</li>
+                    <li>Washing the entire face.</li>
+                    <li>Washing the hands and forearms up to and including the elbows.</li>
+                    <li>Wiping a part of the head: Wiping even a few hairs is sufficient.</li>
+                    <li>Washing the feet up to and including the ankles.</li>
+                    <li>Sequence (<span class="arabic">الترتيب</span> - At-Tartib): Performing these pillars in the mentioned order.</li>
+                </ol>
+
+                <h4>The Complete Description of Wudu (The Wudu of the Prophet ﷺ)</h4>
+                <p>To achieve the "perfection of Wudu" mentioned in the hadith, we follow the method transmitted to us by the Companions from the Prophet (peace and blessings be upon him), which combines both the pillars and the Sunnahs:²⁴</p>
+                 <ol>
+                    <li><strong>Intention (<span class="arabic">النية</span> - An-Niyyah):</strong> Intend in your heart to lift the state of ritual impurity and perform the worship of Wudu, without verbalizing it.</li>
+                    <li><strong>Saying Bismillah (<span class="arabic">التسمية</span> - At-Tasmiyah):</strong> Saying "Bismillah" (In the name of Allah) at the beginning.</li>
+                    <li><strong>Washing the Hands:</strong> Wash the hands three times.</li>
+                    <li><strong>Rinsing the Mouth and Nose:</strong> Swirl water in the mouth (Madmadah), then draw water into the nose (Istinshaq) and expel it (Istinthar), doing so three times. The Prophet (ﷺ) urged us to be thorough in rinsing the nose, except when fasting.</li>
+                    <li><strong>Washing the Face:</strong> Wash the entire face three times. The face extends from the normal hairline to the bottom of the chin, and from ear to ear. One must make the water reach the skin of the beard if it is thin.</li>
+                    <li><strong>Washing the Arms to the Elbows:</strong> Wash the arms from the fingertips up to and including the elbows. Start with the right, then the left, three times each.</li>
+                    <li><strong>Wiping the Head and Ears:</strong> The obligation in the Shafi'i school is to wipe a part of the head, even a single hair, but the Sunnah is to wipe the entire head once.⁶⁷ This is done by wetting the hands and passing them from the front of the head to the nape, then bringing them back to where one started. Immediately after, wipe the ears by inserting the index fingers into the ear canals and wiping the back of the ears with the thumbs.</li>
+                    <li><strong>Washing the Feet to the Ankles:</strong> Wash the feet up to and including the ankles (the two protruding bones at the joint). Start with the right, then the left, three times each, ensuring to pass water between the toes.</li>
+                </ol>
+
+                <h4>Common Mistakes to Avoid (To Elevate Our Wudu)</h4>
+                <p>Perfecting Wudu requires attention to detail and avoiding some common mistakes that can diminish its reward or even invalidate it:</p>
+                <ul>
+                    <li><strong>Wasting Water:</strong> Using large amounts of water goes against the practice of the Prophet (ﷺ), who would perform Wudu with one mudd (the amount that fills the two cupped hands of an average man).²⁵</li>
+                    <li><strong>Incomplete Washing:</strong> Leaving some parts of the limb dry, especially forgotten areas like the heel ('aqib), between the toes, and under rings or watches.²⁹ The Prophet (ﷺ) warned, saying: "<span class="arabic">وَيْلٌ لِلأَعْقَابِ مِنَ النَّارِ</span>" (Waylun lil-a'qabi minan-nar - "Woe to the heels from the Fire").²⁹</li>
+                    <li><strong>Not Washing the Elbows and Ankles:</strong> Some people only wash up to before the elbows and ankles, but the correct way is to include them in the washing.³¹</li>
+                    <li><strong>Violating the Sequence:</strong> One must follow the sequence mentioned by Allah in the Quran, which is a pillar of Wudu in the Shafi'i madhhab: face, then arms, then wiping the head, then feet.²⁴</li>
+                    <li><strong>Verbalizing the Intention:</strong> The place of the intention is the heart. Uttering it aloud was not reported from the Prophet (ﷺ) and is a religious innovation.²⁹</li>
+                </ul>
+                <p>The discipline required to complete Wudu correctly—in terms of sequence, completeness, moderation, and attention to detail—is the same discipline a young Muslim needs to face the temptations of daily life. Every perfected Wudu is training in mindfulness and focus, which are essential skills in the struggle against the self (jihad al-nafs).</p>
+            </section>
+
+            <section id="ghusl">
+                <h3>Section 1.3: Ghusl – The Complete Purification</h3>
+                <p>Ghusl (the ritual bath) is the major purification by which a Muslim transitions from a state of major ritual impurity to a state of complete purity. It is very important for youth at this age to understand what necessitates it and its correct method, especially concerning wet dreams, and to correct common misconceptions.</p>
+                <h4>When is Ghusl Required?</h4>
+                <p>The primary reason Ghusl becomes obligatory for a young man at this age is Janabah (major ritual impurity), which occurs with the emission of semen, most often through a wet dream during sleep.²² It is essential for a young man to understand that a wet dream is a completely normal physiological phenomenon and a sign of health and puberty, not a sin or something to be ashamed of. The Shari'ah did not make it a sin; rather, it assigned it a clear ruling of purification, which is Ghusl. So, Ghusl here is not a punishment but a blessed transition from one state to another, and a renewal of purity and vitality.</p>
+                
+                <h4>The Correct Method of Ghusl</h4>
+                <p>There are two correct ways to perform Ghusl:</p>
+                <ol>
+                    <li><strong>The Pillars of Ghusl in the Shafi'i Madhhab (The Sufficient Ghusl):</strong> This is the minimum required for the Ghusl to be valid and for the state of Janabah to be lifted. It includes three essential pillars:⁶⁹
+                        <ul>
+                            <li>Intention (<span class="arabic">النية</span> - An-Niyyah): To intend in one's heart to lift the state of major ritual impurity or to purify oneself for prayer, etc.</li>
+                            <li>Removing physical filth (<span class="arabic">النجاسة العينية</span> - An-Najasa al-'Ayniyyah): If there is any on the body.</li>
+                            <li>Making water reach the entire body: Ensuring that water reaches every part of the body, including the roots of the hair, under the armpits, the navel, and other hidden areas, without leaving any dry spot.</li>
+                        </ul>
+                    </li>
+                    <li><strong>The Complete Ghusl (The Sunnah Method):</strong> This is the best and most complete method, as it combines the obligatory and the recommended acts, and it follows the practice of the Prophet (ﷺ). Its steps are as follows:³³
+                        <ol>
+                            <li>Say Bismillah at the start and wash the hands three times.</li>
+                            <li>Wash the private parts and surrounding areas to remove any filth.</li>
+                            <li>Perform a complete Wudu as one would for prayer. It is permissible to delay washing the feet until the end of the Ghusl.</li>
+                            <li>Wash the head: Pour water over the head three times, running fingers through the hair to ensure water reaches the scalp.</li>
+                            <li>Wash the rest of the body: Pour water over the rest of the body, starting with the right side, then the left side.</li>
+                            <li>Pay attention to hidden areas: Give special care to areas that water might not easily reach, such as the armpits, behind the ears, the navel, the back of the knees, and between the toes.</li>
+                        </ol>
+                    </li>
+                </ol>
+
+                <h4>Common Mistakes in Ghusl</h4>
+                <ul>
+                    <li><strong>Overcomplicating the matter:</strong> Believing that Ghusl is a very complex process, which leads to delaying it or being lazy about it.³²</li>
+                    <li><strong>Leaving dry spots:</strong> This is one of the most serious mistakes that invalidates the Ghusl. Therefore, one must be keen on ensuring water covers the entire body.³⁷</li>
+                    <li><strong>Using soap before water has covered the body:</strong> The initial removal of the major ritual impurity must be with purifying water alone. Using soap and shampoo comes after that for general hygiene.³³</li>
+                    <li><strong>Forgetting the intention:</strong> Simply taking a regular shower does not lift the state of Janabah. The intention for the ritual Ghusl must be present.³⁷</li>
+                    <li><strong>False beliefs:</strong> Such as believing that a person in a state of Janabah cannot touch things or leave the house. This is incorrect. Janabah is a legal state, not a physical impurity. The Prophet (ﷺ) said: "<span class="arabic">إِنَّ الْمُؤْمِنَ لَا يَنْجُسُ</span>" (Innal-mu’mina la yanjus - "Verily, a believer is never impure").⁴</li>
+                </ul>
+                <p>Ghusl serves as a spiritual and physical "reset button." It symbolizes a new beginning, washes away the laziness and lethargy associated with Janabah, and prepares the Muslim to stand before Allah with renewed purity and energy.</p>
+            </section>
+        </section>
+        <!-- END: TAHARAH SECTION -->
+
+        <div class="mind-map-container">
+            <h3 class="mind-map-title">Mind Map: Fortress of the Body</h3>
+            <div class="mind-map-core">Mastering Physical Purity</div>
+            <div class="mind-map-branches">
+                <div class="mind-map-branch">
+                    <h4>1. Understand Terms</h4>
+                    <p>Hadath (Minor/Major)</p>
+                    <p>Najasa (Filth)</p>
+                </div>
+                <div class="mind-map-branch">
+                    <h4>2. Know the Rulings</h4>
+                    <p>Semen (Mani) -> Ghusl</p>
+                    <p>Pre-seminal (Madhy) -> Wudu</p>
+                    <p>Post-urinal (Wady) -> Wudu</p>
+                </div>
+                <div class="mind-map-branch">
+                    <h4>3. Perfect Wudu</h4>
+                    <p>Pillars & Sunnahs</p>
+                    <p>Avoid Common Mistakes</p>
+                </div>
+                <div class="mind-map-branch">
+                    <h4>4. Perform Ghusl</h4>
+                    <p>Sufficient vs. Complete</p>
+                    <p>When it's required</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- START: SOUL SECTION -->
+        <section>
+            <h2>Part Two: The Fortress of the Soul – Guarding Inner Purity in the Modern World</h2>
+
+            <section id="digital-pandemic">
+                <h3>Section 2.1: The Digital Pandemic – Understanding the Trial of Pornography and Masturbation</h3>
+                <p>The greatest challenges facing Muslim youth today, especially in an open environment, is the temptation of desires that have become accessible with unprecedented ease via the internet. The goal of this section is to provide a clear Islamic ruling on watching pornographic material and practicing masturbation, to explain their harms from a religious and scientific perspective, and to frame this struggle as a great jihad for this generation.</p>
+                <h4>The Shari'ah Ruling</h4>
+                <p><strong>Watching Pornography:</strong> It is definitively and unquestionably forbidden (haram). It combines several prohibitions: looking at the private parts of others, which is a major sin, and is considered "adultery of the eyes" as the Prophet (ﷺ) informed us.³⁹ It is a clear violation of Allah's command: {<span class="arabic">قُل لِّلْمُؤْمِنِينَ يَغُضُّوا مِنْ أَبْصَارِهِمْ وَيَحْفَظُوا فُرُوجَهُمْ</span>} ({Qul lil-mu’minina yaghuddu min absarihim wa yahfadhu furujahum} - "Tell the believing men to reduce [some] of their vision and guard their private parts") [An-Nur: 30].³⁹</p>
+                <p><strong>Masturbation (<span class="arabic">الاستمناء</span> - Al-Istimna'):</strong> It is forbidden in the Shafi'i madhhab and other schools of the majority of scholars.⁶⁸ The primary evidence for this is the statement of Allah the Exalted in describing the believers: {<span class="arabic">وَالَّذِينَ هُمْ لِفُرُوجِهِمْ حَافِظُونَ (5) إِلَّا عَلَى أَزْوَاجِهِمْ أَوْ مَا مَلَكَتْ أَيْمَانُهُمْ فَإِنَّهُمْ غَيْرُ مَلُومِينَ (6) فَمَنِ ابْتَغَى وَرَاءَ ذَلِكَ فَأُولَئِكَ هُمُ الْعَادُونَ (7)</span>} ({Walladhina hum li-furujihim hafizun (5) Illa 'ala azwajihim aw ma malakat aymanuhum fa-innahum ghayru malumin (6) Faman ibtagha wara’a dhalika fa-ula’ika humul-'adun (7)} - "And they who guard their private parts (5) Except from their wives or what their right hands possess, for indeed, they will not be blamed (6) But whoever seeks beyond that, then those are the transgressors (7)") [Al-Mu'minun: 5-7]. Allah limited the fulfillment of sexual desire to one's spouse, and deemed anything beyond that as transgression and exceeding the limits.³⁹</p>
+                <p><strong>The Prophetic Guidance:</strong> When the Prophet (ﷺ) advised the youth who could not afford to marry, he guided them to fasting and did not guide them to masturbation. He said: "...<span class="arabic">وَمَنْ لَمْ يَسْتَطِعْ فَعَلَيْهِ بِالصَّوْمِ فَإِنَّهُ لَهُ وِجَاءٌ</span>" (“...wa man lam yastati' fa-'alayhi bis-sawmi fa-innahu lahu wija’” - "...and whoever is not able to marry, should fast, as it is a protection for him").⁴² This is clear evidence that masturbation is not a permissible solution.</p>
+                
+                <h4>Spiritual and Scientific Harms</h4>
+                <p>The Shari'ah's prohibition of these practices is not arbitrary restrictions but a mercy and protection from grave harms that modern science has confirmed, demonstrating the harmony between divine wisdom and scientific facts.</p>
+                <ul>
+                    <li><strong>Spiritual Harms:</strong> These sins, especially when committed in secret, create a state of practical hypocrisy, weaken faith, harden the heart, remove the sweetness of worship, and instill a feeling of distance from Allah and loneliness.⁴⁷ They are a betrayal of the trust of the body and sight that Allah has bestowed upon man.</li>
+                    <li><strong>Scientific and Psychological Harms:</strong>
+                        <ul>
+                            <li><strong>Addiction and its Effect on the Brain:</strong> Pornography acts as a "supernormal stimulus" that floods the brain with dopamine (the pleasure hormone), hijacking the brain's reward pathways. Over time, "tolerance" develops, where the addict needs more extreme and violent material to get the same effect. When trying to quit, they suffer from withdrawal symptoms like anxiety and stress.⁴⁸</li>
+                            <li><strong>Desensitization:</strong> Addiction to pornography and masturbation leads to a desensitization of sexual feeling, which can make natural marital relations in the future seem dull and unfulfilling.⁴⁹</li>
+                            <li><strong>Mental Health:</strong> These practices trap a person in a vicious cycle of guilt, shame, anxiety, depression, and low self-esteem.⁴⁹</li>
+                            <li><strong>Social Isolation:</strong> This habit thrives in solitude and secrecy, pushing the person to isolate themselves from their social and family environment.⁴⁸</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>Pornography can be likened to "junk food for the brain." Just as unhealthy food provides temporary pleasure but destroys the body in the long run, pornography provides a temporary dopamine rush but destroys the brain, soul, and future relationships.</p>
+            </section>
+
+            <section id="believers-toolkit">
+                <h3>Section 2.2: The Believer's Toolkit – Your Strategy for Victory</h3>
+                <p>Overcoming these habits is not impossible, but it requires an integrated plan that combines strengthening the soul and changing behavior. This battle requires the use of a "spiritual arsenal" and "practical defenses" simultaneously.</p>
+                <h4>The Spiritual Arsenal (Strengthening Your Relationship with Allah)</h4>
+                <ul>
+                    <li><strong>Repentance (<span class="arabic">التوبة</span> - At-Tawbah):</strong> It must be emphasized that the door of repentance is always open and that Allah's mercy is vaster than any sin. Repeating a sin and then sincerely repenting is not hypocrisy; it is a sign of faith and hope in what Allah has. The important thing is not to despair of Allah's mercy.⁴⁷</li>
+                    <li><strong>Supplication (<span class="arabic">الدعاء</span> - Ad-Du'a):</strong> Sincerely turning to Allah for help and protection. One of the greatest supplications in this regard is what the Prophet (ﷺ) taught us: "<span class="arabic">اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ سَمْعِي، وَمِنْ شَرِّ بَصَرِي، وَمِنْ شَرِّ لِسَانِي، وَمِنْ شَرِّ قَلْبِي، وَمِنْ شَرِّ مَنِيِّي</span>" (Allahumma inni a'udhu bika min sharri sam'i, wa min sharri basari, wa min sharri lisani, wa min sharri qalbi, wa min sharri maniyyi - "O Allah, I seek refuge in You from the evil of my hearing, and from the evil of my sight, and from the evil of my tongue, and from the evil of my heart, and from the evil of my semen").⁵³</li>
+                    <li><strong>Prayer (<span class="arabic">الصلاة</span> - As-Salah):</strong> Observing the five daily prayers on time is the strongest fortress. Allah says: {<span class="arabic">إِنَّ الصَّلَاةَ تَنْهَى عَنِ الْفَحْشَاءِ وَالْمُنْكَرِ</span>} ({Innas-salata tanha 'anil-fahsha'i wal-munkar} - "Indeed, prayer prohibits immorality and wrongdoing") [Al-'Ankabut: 45].⁵⁴</li>
+                    <li><strong>Fasting (<span class="arabic">الصوم</span> - As-Sawm):</strong> This is the direct Prophetic prescription for curbing desire.⁴²</li>
+                    <li><strong>Righteous Companionship (<span class="arabic">الصحبة الصالحة</span> - As-Suhbah as-Saliha):</strong> Surrounding oneself with friends who remind one of Allah and help in His obedience, and staying away from bad company that facilitates sin.⁵⁵</li>
+                </ul>
+                <h4>Practical Defenses (Changing Your Environment and Habits)</h4>
+                 <p>Spiritual actions need a practical environment that helps them succeed. It is not enough to ask Allah to protect you while you leave the doors to temptation wide open.</p>
+                <ul>
+                    <li><strong>Identify Triggers:</strong> A young man must be self-aware and know what drives him to this habit. Is it loneliness? Boredom? Stress? Certain times, like late at night?⁴⁹</li>
+                    <li><strong>Block the Path to Temptation:</strong> The first step is to make accessing pornography difficult. This includes deleting any saved material, installing filtering and blocking software on all devices (a crucial step), and removing phones and devices from the bedroom at night.⁵⁹</li>
+                    <li><strong>Fill the Void:</strong> Replace the time that was spent on these habits with beneficial and enjoyable activities: playing sports, learning a new skill, reading the Quran, volunteering, spending more time with family.⁵⁵</li>
+                    <li><strong>Avoid Seclusion:</strong> This sin thrives in darkness and secrecy. One must commit to using the internet only in common areas of the house, not in a closed room.⁵⁹</li>
+                    <li><strong>Seek Help:</strong> The idea of seeking help from a trusted adult (a father, mentor, imam) or even a specialized therapist must be normalized. Seeking help is a sign of strength and courage, not weakness.⁴⁹</li>
+                </ul>
+                <p>Recovery is a comprehensive process that requires both offense (building spiritual strength) and defense (changing the environment). Both are necessary for success.</p>
+            </section>
+            
+            <section id="life-of-ihsan">
+                <h3>Section 2.3: A Life of Ihsan – Be a Strong Muslim</h3>
+                <p>The ultimate goal is not merely to avoid the forbidden (haram), but to rise to the level of Ihsan (excellence), which is "to worship Allah as if you see Him, and if you do not see Him, then [know that] He sees you." This concept transforms every act of purity into an act of love and nearness to Allah.</p>
+                <h4>The Jihad of Lowering the Gaze</h4>
+                <p>A young Muslim faces a constant challenge in lowering his gaze, whether at school, on the street, or on screens.⁵⁴ The discipline he learned in perfecting his Wudu and not leaving a single spot dry is the same mental discipline he needs to lower his gaze in a moment of temptation. Instead of viewing it as deprivation, it can be seen as an opportunity to earn immense rewards and to train the self in having modesty (Haya') before Allah.</p>
+                <h4>Purity as a Source of Confidence</h4>
+                <p>Maintaining purity, both outer and inner, is not a cause for shame or isolation, but a source of honor and strength. A young man who keeps his body pure from impurities, and his heart and gaze pure from the forbidden, possesses a self-respect and inner confidence that cannot be shaken by peer pressure or the surrounding culture.⁶² He knows he is connected to Allah, and this gives him dignity and steadfastness.</p>
+                <h4>From Fiqh to Ihsan</h4>
+                <p>The transition from the mindset of "What is the minimum required of me to be pure?" to the mindset of "How can I make my purity more beloved to Allah?" is the essence of Ihsan. This means performing the complete Ghusl instead of the sufficient one, perfecting Wudu, and feeling the meaning of sins falling away with every drop of water. This active pursuit of excellence is the most powerful weapon against the whispers of Satan and the temptations of the self.</p>
+                <p>Your struggle today, O youth, is an extension of a long history of righteous youth who preserved their religion in difficult environments, like the people of the cave and Prophet Yusuf (peace be upon him). Every small victory you achieve in this personal jihad is great in the scale of Allah. So let your purity be your fortress, your faith your weapon, and your trust in Allah your guide on this blessed path.</p>
+            </section>
+        </section>
+        <!-- END: SOUL SECTION -->
+        
+        <div class="mind-map-container">
+            <h3 class="mind-map-title">Mind Map: Fortress of the Soul</h3>
+            <div class="mind-map-core">Guarding Inner Purity</div>
+            <div class="mind-map-branches">
+                <div class="mind-map-branch"><h4>The Threat</h4><p>Pornography & Masturbation (Haram)</p></div>
+                <div class="mind-map-branch"><h4>The Harms</h4><p>Spiritual & Psychological Damage</p></div>
+                <div class="mind-map-branch"><h4>Spiritual Tools</h4><p>Tawbah, Du'a, Salah, Sawm, Good Friends</p></div>
+                <div class="mind-map-branch"><h4>Practical Tools</h4><p>Blockers, New Hobbies, Avoid Seclusion, Seek Help</p></div>
+            </div>
+        </div>
+
+        <!-- START: HALAL & HARAM GUIDE -->
+        <section id="halal-haram-guide">
+            <h2>A Guide to Halal and Haram in Daily Situations</h2>
+        
+            <section id="hh-intro">
+                <h3>Introduction: Keys to Your Deen - Understanding the Bigger Picture</h3>
+                <h4>A. Why Halal and Haram? The Mercy Behind the Rulings</h4>
+                <p>Understanding the system of Halal (permissible) and Haram (forbidden) in Islam begins with a fundamental realization: the rulings of Shari'ah are not arbitrary restrictions, but rather a manifestation of Allah's vast mercy and an integrated system designed to protect humanity and achieve its best interests in this life and the next. The Islamic Shari'ah was revealed only to secure the benefits for the servants and ward off harm from them.¹ This concept changes a young Muslim's perspective from merely adhering to a list of prohibitions to interacting with a system aimed at his prosperity and well-being.</p>
+                <p>Scholars have deduced from the texts of the Shari'ah that it aims to preserve five fundamental necessities, known as the "Objectives of the Shari'ah" (Maqasid al-Shari'ah). These are the grand goals around which all rulings revolve. Simplifying these objectives for the youth is the cornerstone of building firm conviction:</p>
+                <ol>
+                    <li><strong>Preservation of Religion (<span class="arabic">حفظ الدين</span> - Hifdh ad-Din):</strong> This is the greatest objective. It means protecting a person's relationship with their Creator, safeguarding the creed of monotheism (Tawhid), and providing everything necessary to perform the acts of worship which are the purpose of creation.</li>
+                    <li><strong>Preservation of Life (<span class="arabic">حفظ النفس</span> - Hifdh an-Nafs):</strong> This means protecting human life and bodily safety. For this reason, murder and assault were forbidden, and laws that preserve public health were legislated, including the prohibition of harmful foods.³</li>
+                    <li><strong>Preservation of Intellect (<span class="arabic">حفظ العقل</span> - Hifdh al-'Aql):</strong> This means protecting a person's ability to think soundly and make distinctions. For this reason, alcohol and intoxicants and anything that clouds the mind were forbidden, due to the destruction they cause to this great blessing.³</li>
+                    <li><strong>Preservation of Lineage (<span class="arabic">حفظ النسل</span> - Hifdh an-Nasl):</strong> This means protecting the family, organizing the relationship between the genders, and preserving lineage. For this purpose, marriage was legislated and adultery was forbidden, and regulations for social interactions were established.⁵</li>
+                    <li><strong>Preservation of Wealth (<span class="arabic">حفظ المال</span> - Hifdh al-Mal):</strong> This means protecting a person's property and resources. For this reason, theft, interest (riba), and deception were forbidden, and rules for just financial transactions were legislated.³</li>
+                </ol>
+                <p>Connecting every ruling of Halal and Haram to one of these higher objectives shifts the youth from a "rule-following" mentality to a "purpose-understanding" mentality. When he understands that the prohibition of alcohol is not just a restriction but a protection for his mind, wealth, and honor, and that the regulations for dress are not a constraint but a preservation of his dignity and the community, then compliance transforms from a burden into a conscious choice and an internal conviction.</p>
+        
+                <h4>B. The Golden Rule: "Everything is Permissible, Except..."</h4>
+                <p>After understanding the grand purpose of the legislation, it is important to equip the youth with a practical jurisprudential tool that enables them to deal with modern life's novelties with confidence and peace of mind. This tool is the great legal maxim upon which the Shafi'i school and the majority of scholars rely: "<span class="arabic">الأصل في الأشياء الإباحة حتى يدل الدليل على التحريم</span>" (Al-Asl fi al-Ashya' al-Ibahah hatta yadull al-dalil 'ala al-tahrim - "The default ruling on things is permissibility until there is evidence to prove prohibition").⁷</p>
+                <p>This principle means that everything Allah has created in this universe of substances, benefits, customs, and transactions is Halal and permissible for us as Muslims. We do not move from this default position except with clear and explicit evidence from the Quran or the authentic Sunnah that proves prohibition.⁹ The burden of proof for prohibition lies with the one who claims it, not the other way around. This is from the ease and magnanimity of Islam; it opens for us the vast doors of life and confines the prohibitions to a very narrow circle.¹⁰</p>
+                 <p>It is crucial here to clarify a fundamental distinction that helps a young Muslim differentiate between various areas of life. This golden rule (the default is permissibility) applies to customs and transactions ('Aadat), which are worldly matters like food, drink, clothing, technology, and business contracts.¹⁰ However, in the realm of acts of worship ('Ibadat), the rule is reversed: "The default in acts of worship is prohibition and cessation until there is evidence for its legislation." It is not permissible for anyone to invent an act of worship or to draw near to Allah in a manner He has not legislated. This distinction frees the young Muslim from obsessive doubts in his worldly affairs, allowing him to deal with his culture and its novelties with confidence, as long as they do not clash with a prohibitive text. At the same time, it makes him extremely careful about the purity of his worship and adherence to the Sunnah.</p>
+            </section>
+        
+            <section id="hh-food">
+                <h3>Axis 1: Food for the Body, the Halal Way</h3>
+                <h4>A. The Divine List: What Allah Has Explicitly Forbidden</h4>
+                <p>Before delving into the details of contemporary foods, it is essential to establish knowledge of the basic prohibitions explicitly stated in the Holy Quran. These prohibitions are limited and clear, and understanding them is the foundation upon which everything else is built. Allah the Exalted said: ﴿<span class="arabic">إِنَّمَا حَرَّمَ عَلَيْكُمُ الْمَيْتَةَ وَالدَّمَ وَلَحْمَ الْخِنزِيرِ وَمَا أُهِلَّ بِهِ لِغَيْرِ اللَّهِ</span>﴾ ({Innama harrama 'alaykumu al-maytata wad-dama wa lahm al-khinzeeri wa ma uhilla bihi li-ghayrillah} - "He has only forbidden to you dead animals, blood, the flesh of swine, and that which has been dedicated to other than Allah") [Al-Baqarah: 173].</p>
+                <ul>
+                    <li><strong><span class="arabic">الميتة</span> (Al-Maitah - Carrion/Dead Meat):</strong> This refers to any animal whose meat is permissible to eat but has died on its own without being properly slaughtered according to Islamic law. This includes an animal that died by strangulation, a violent blow, a fall from a high place, or by being gored by another animal.³ The wisdom behind its prohibition is clear: it is a protection from the health damage resulting from the retention of corrupt blood and germs in the animal's body, and thus a preservation of life.³</li>
+                    <li><strong><span class="arabic">الدم</span> (Al-Dam - Blood):</strong> This refers to flowing blood, i.e., the liquid that gushes out from an animal when it is slaughtered. As for the blood that remains in the veins and meat after a proper Islamic slaughter, it is pure and overlooked.¹⁶ The prohibition of blood is also due to health reasons and its filthiness.</li>
+                    <li><strong><span class="arabic">لحم الخنزير</span> (Lahm al-Khinzir - Pork):</strong> The prohibition includes all parts of the pig, including its meat, fat, and skin.¹⁶ Modern science has proven the severe harms and filthiness of pork, as it is a fertile environment for many parasites and deadly germs. Furthermore, consuming it affects a person's character, causing them to acquire some of its foul traits, such as a lack of protective jealousy.³</li>
+                    <li><strong><span class="arabic">ما أُهِلَّ به لغير الله</span> (Ma uhilla bihi li-ghayr Allah - That which is dedicated to other than Allah):</strong> This refers to anything slaughtered in a name other than Allah's, such as slaughtering to appease idols, graves, or any deity other than Allah. This prohibition is related to the soundness of one's creed and the preservation of religion, as it is a form of major polytheism (Shirk), which is the greatest of sins.¹⁶</li>
+                </ul>
+        
+                <h4>B. The Meat Dilemma: A Special Case</h4>
+                <p>Here we arrive at one of the most pressing and confusing issues for Muslim youth. It is necessary to clarify for them that meat has a special ruling that differs from other foods.</p>
+                <p><strong>The Exception to the Rule:</strong> Unlike the general principle that "the default ruling on things is permissibility," the principle for meat is <strong>"the default ruling on meat is prohibition until its permissibility is established."</strong>²⁰ This means it is not permissible to eat any meat unless one is certain that it has been slaughtered according to Islamic law (Tadhkiyah). This principle protects Muslims from eating carrion (Maitah), which is a matter of grave importance.</p>
+                <p><strong>Food of the People of the Book (<span class="arabic">أهل الكتاب</span> - Ahl al-Kitab):</strong> Allah has permitted Muslims to eat the slaughtered animals of the People of the Book (Jews and Christians) in His statement: ﴿<span class="arabic">وَطَعَامُ الَّذِينَ أُوتُوا الْكِتَابَ حِلٌّ لَكُمْ</span>﴾ ({Wa ta'amu alladheena ootoo al-kitaba hillun lakum} - "And the food of those who were given the Scripture is lawful for you") [Al-Ma'idah: 5]. The commentators have unanimously agreed that the word "food" (ta'am) here specifically refers to their slaughtered animals, as other foods like grains and fruits are lawful from any source.²²</p>
+                <p><strong>Contemporary Issues Regarding the Slaughter of the People of the Book:</strong> A Muslim should not eat meat unless they are certain or reasonably sure that it was slaughtered in the Islamic manner and that Allah's name was mentioned over it. This is the path of piety (wara') that preserves one's religion.</p>
+                <div class="activity-box">
+                    <h4>Scenario Workshop: "Pizza Party at School"</h4>
+                    <p>The following scenario is presented to the youth: "You've been invited to a pizza party at school. The options available are: cheese pizza, pepperoni pizza, and vegetable pizza. What do you do?"</p>
+                    <ul>
+                        <li><strong>Pepperoni Pizza:</strong> Absolutely forbidden (haram), because it is made from pork.</li>
+                        <li><strong>Vegetable Pizza:</strong> Permissible (halal), because the default for plants is permissibility.</li>
+                        <li><strong>Cheese Pizza:</strong> Mostly permissible, but it opens a discussion about the ingredients of cheese (rennet), which will be addressed in the next section.</li>
+                    </ul>
+                </div>
+        
+                <h4>C. Decoding Labels: A Food Investigator's Guide</h4>
+                <p>Living in an industrial society requires the skill of reading ingredient labels on processed foods. Youth must be equipped with the necessary knowledge to deal with questionable ingredients.</p>
+                <p><strong><span class="arabic">الجيلاتين</span> (Gelatin):</strong> One of the most dubious ingredients. Gelatin is often derived from the skins and bones of pigs or cattle that were not slaughtered Islamically.³⁵ Based on the strict Shafi'i position which does not consider transformation (Istihalah) a purifying agent for most impurities, gelatin from a forbidden source remains haram. Piety (wara') demands leaving doubtful matters entirely and searching for alternatives that are certainly halal, such as plant-based or fish-based gelatin.</p>
+                <p><strong>Alcohol in Flavorings (e.g., vanilla extract):</strong> Many artificial flavorings use ethyl alcohol as a solvent. The legal principle is that "whatever intoxicates in large amounts, a small amount of it is forbidden (haram)." Based on this, the soundest and most cautious opinion for one's religion is to avoid products containing alcohol, even in small percentages, because it is part of an intoxicating substance that has been intentionally added to the food.</p>
+                <p><strong>Enzymes, Mono- and Diglycerides:</strong> These can be from plant, animal, or microbial sources. If the source is animal and unspecified, it falls into the realm of doubt, and piety demands leaving it. However, if it is stated to be from a plant or microbial source, it is halal.</p>
+                
+                 <table>
+                    <caption>Table 1: A Muslim's Smart Food Checklist</caption>
+                    <thead>
+                        <tr>
+                            <th>Ingredient</th>
+                            <th>Potential Issue</th>
+                            <th>Ruling (According to Shafi'i Madhhab)</th>
+                            <th>Action Required</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pork, Lard, Bacon</td>
+                            <td>Forbidden by explicit text.</td>
+                            <td>Haram.</td>
+                            <td>Complete avoidance.</td>
+                        </tr>
+                        <tr>
+                            <td>Meat (Beef, Chicken, etc.)</td>
+                            <td>Slaughter method is unknown.</td>
+                            <td>Haram. The default for meat is prohibition.</td>
+                            <td>Only consume meat that is certified "Halal" or "Zabihah."</td>
+                        </tr>
+                        <tr>
+                            <td>Gelatin, Marshmallows</td>
+                            <td>Often from pork or unslaughtered animals. Istihalah is not considered in the Shafi'i school.</td>
+                            <td>Haram, unless labeled "fish gelatin" or "plant-based gelatin."</td>
+                            <td>Look for plant-based alternatives or certified Halal products.</td>
+                        </tr>
+                        <tr>
+                            <td>Vanilla Extract</td>
+                            <td>Contains alcohol as a solvent.</td>
+                            <td>Halal, as long as the alcohol is not from wine and does not intoxicate.</td>
+                            <td>Generally permissible in manufactured foods.</td>
+                        </tr>
+                        <tr>
+                            <td>Enzymes (like Rennet)</td>
+                            <td>Can be from an animal source (pork or unslaughtered calf).</td>
+                            <td>Doubtful/Haram if the animal source is unspecified.</td>
+                            <td>Look for products with "microbial rennet" or "vegetable rennet." When in doubt, it is best to avoid.</td>
+                        </tr>
+                        <tr>
+                            <td>Carmine / Cochineal Extract</td>
+                            <td>Red dye extracted from insects.</td>
+                            <td>Halal. The stronger opinion is that insects that do not have flowing blood are pure.</td>
+                            <td>Permissible for consumption.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        
+            <section id="hh-social">
+                <h3>Axis 2: Dealing with Your Social World</h3>
+                <h4>A. Lines and Limits: Interaction with the Opposite Gender</h4>
+                <p>Relations between the sexes are among the biggest challenges facing Muslim youth. Presenting the Shari'ah guidelines should not be as a list of prohibitions, but as a protective framework that safeguards the dignity of young men and women and preserves the purity of society. Social ethics in Islam are distinguished by being proactive and preventative, not merely reactive to problems after they occur. They aim to reduce triggers and causes of temptation from the outset, making it easier for individuals to maintain their chastity. This aligns perfectly with the objectives of Shari'ah in preserving religion, lineage, honor, and intellect.</p>
+                <p>The Core Principles:</p>
+                <ul>
+                    <li><strong>Lowering the Gaze (<span class="arabic">غض البصر</span> - Ghad al-Basar):</strong> This is the first line of defense. Allah commanded it for both men and women. Lowering the gaze does not mean walking with one's eyes closed, but rather averting one's gaze from everything Allah has forbidden and not prolonging a gaze with desire at the opposite gender, whether in real life or through screens and social media.</li>
+                    <li><strong>Guarding Chastity (<span class="arabic">حفظ الفرج</span> - Hifdh al-Farj):</strong> This is the natural result of lowering the gaze and means preserving one's chastity and staying away from all precursors to immorality.</li>
+                    <li><strong>Prohibition of Seclusion (<span class="arabic">الخلوة</span> - Khulwah):</strong> This is when a man is alone with a non-mahram woman (i.e., a woman he is permitted to marry, unlike his mother or sister) in a place where no one can see them. The Prophet (ﷺ) said: «<span class="arabic">ألا لا يَخْلُوَنَّ رجلٌ بامرأةٍ إلا كان ثالثَهما الشيطانُ</span>» ("Indeed, a man is never alone with a woman except that the third one present is Satan").</li>
+                    <li><strong>"Just Friends?":</strong> The concept of romantic friendships or "dating" between the sexes has no place in Islam. Relationships between young men and women must be within the framework of legitimate need (such as study or work), take place in a public space, and adhere completely to Islamic etiquette, including lowering the gaze, modesty in speech, and not being soft in speech.</li>
+                </ul>
+        
+                <h4>B. Holidays and Celebrations: Participating and Remaining Muslim</h4>
+                <p>Muslim youth face social pressure to participate in widespread holidays. It is essential to equip them with the jurisprudential tools to distinguish between neutral cultural participation and forbidden religious imitation (<span class="arabic">التشبه</span> - Tashabbuh).</p>
+                <ul>
+                    <li><strong>Christmas and Halloween:</strong> These two holidays have clear religious (Christian) and pagan roots. Participating in them by celebrating, decorating the home, or exchanging greetings specific to them is considered forbidden imitation of their religious rituals.</li>
+                    <li><strong>Thanksgiving:</strong> Although this holiday is practiced today as a national and cultural celebration, its historical origins and roots are closely tied to a specific religious group. Therefore, the soundest and most cautious opinion is that it is not permissible to participate in or celebrate this holiday, due to the danger of prohibited imitation and the need to preserve a distinct Islamic identity.</li>
+                    <li><strong>Valentine's Day:</strong> This is a holiday of pagan origin, associated with concepts of illicit love and forbidden relationships. It is not permissible to celebrate it or exchange gifts specific to it.</li>
+                </ul>
+                <div class="activity-box">
+                    <h4>Open Discussion: "Your non-Muslim neighbor gives you a Christmas gift. What do you do?"</h4>
+                    <p>Discussion: The youth are guided to accept the gift as an act of good neighborliness and kindness which Islam commands, while not participating in the religious celebration itself. This gift can be reciprocated with another gift on our Islamic holidays (like Eid al-Fitr or Eid al-Adha) to introduce them to our celebrations.</p>
+                </div>
+            </section>
+        
+            <section id="hh-entertainment">
+                <h3>Axis 3: Entertainment, Gaming, and Your Faith</h3>
+                <h4>A. Islam's View on Entertainment and Fun</h4>
+                <p>Contrary to the stereotypical image that may be promoted about Islam, it is a balanced religion that acknowledges the human soul's need for permissible recreation and entertainment (<span class="arabic">ترويح</span> - Tarwih). Entertainment is not a goal in itself but a means to renew energy and strengthen the body and soul to return to worship and work with greater vigor. The Prophet (ﷺ) approved of balancing between worship and permissible worldly matters, saying: «<span class="arabic">...وَلَكِنْ يَا حَنْظَلَةُ سَاعَةً وَسَاعَةً</span>» ("...But, O Hanzalah, there is a time for this and a time for that").</p>
+                <h4>B. The Ruling on Music and Video Games</h4>
+                <p><strong>Music:</strong> The relied-upon position is that music accompanied by musical instruments (<span class="arabic">معازف</span> - ma'azif) is forbidden (haram), based on evidence from the Quran and the authentic Sunnah, such as the hadith in Al-Bukhari where the Prophet (ﷺ) mentioned that people would come who "deem permissible... musical instruments." The word "deem permissible" indicates that these things are originally forbidden.</p>
+                <p><strong>Video Games:</strong> Since they are matters of custom, the default ruling is permissibility, but they are restricted by strict guidelines:</p>
+                <ol>
+                    <li>The content must be free from prohibitions: The game must be free of polytheism (Shirk), magic, nudity, glorification of disbelief, gambling, forbidden music, and excessive violence.</li>
+                    <li>If music can be turned off in the game's settings, the prohibition is removed. However, if the music is an integral part of the game and cannot be removed, the most pious and cautious position is to avoid the game.</li>
+                </ol>
+                <h4>C. Your Most Precious Asset: Time</h4>
+                <p>This axis concludes with a brief and inspiring reminder about the value of time in Islam. The Prophet (ﷺ) said: «<span class="arabic">نِعْمَتانِ مَغْبُونٌ فِيهِما كَثِيرٌ مِنَ النَّاسِ: الصِّحَّةُ والفَراغُ</span>» ("There are two blessings which many people waste: health and free time"). The righteous predecessors were the most careful of people with their time. They saw wasting time as more severe than wasting money.</p>
+            </section>
+        
+            <section id="hh-appearance">
+                <h3>Axis 4: Your Appearance is Your Identity</h3>
+                <h4>A. Dress in Islam: Purposes and Goals</h4>
+                <p>Dress in Islam is not just a piece of cloth that covers the body; it is a message, an identity, and an act of worship. The Shari'ah objectives behind imposing certain dress regulations aim to achieve:</p>
+                <ul>
+                    <li>Chastity and Modesty (<span class="arabic">الحياء</span> - Haya')</li>
+                    <li>Covering and Guarding the 'Awrah</li>
+                    <li>Distinguishing the Islamic Identity</li>
+                    <li>Purifying Society</li>
+                </ul>
+                <h4>B. For Sisters: The Power and Beauty of the Hijab</h4>
+                <p>The obligation of Hijab is established in the Quran. The Seven Conditions of the Shari'i Hijab:</p>
+                <ol>
+                    <li>It must cover the entire body (with a valid scholarly difference of opinion regarding the face and hands).</li>
+                    <li>It should not be an adornment in itself.</li>
+                    <li>It must be thick and not transparent.</li>
+                    <li>It must be loose-fitting and not tight.</li>
+                    <li>It must not be perfumed in a way that its scent attracts non-mahram men.</li>
+                    <li>It must not resemble the clothing of men.</li>
+                    <li>It must not resemble the specific clothing of non-Muslim women.</li>
+                </ol>
+                <h4>C. For Everyone: Dress and Identity</h4>
+                <p><strong>Imitating the Opposite Gender:</strong> The Prophet (ﷺ) cursed men who imitate women and women who imitate men. This includes dress, speech, and gait.</p>
+                <p><strong>The Ruling on Women Wearing Trousers/Pants:</strong> According to the fatwas of the Council of Senior Scholars, it is not permissible for a woman to wear trousers as outer clothing, even if they are wide, because they define the shape of the body and are considered an imitation of men in their dress. It is only permissible if they are concealed under a wide and covering jilbab or abaya.</p>
+            </section>
+
+             <section>
+                <h3>Conclusion: Live Your Islam with Confidence</h3>
+                <h4>A. Summary of Core Principles</h4>
+                <ul>
+                    <li>All of Allah's rulings are mercy and wisdom, aimed at our benefit (Maqasid).</li>
+                    <li>The default in worldly matters is permissibility, granting us a wide space to live and innovate.</li>
+                    <li>The exceptions to this rule (like meat and harmful prohibitions) are for our protection.</li>
+                    <li>Our Islamic identity is a source of pride, honor, and confidence, not a source of shame or hesitation.</li>
+                </ul>
+                <h4>C. Empowering Closing Message</h4>
+                <p>Adhering to these guidelines is not a restriction of freedom, but rather the attainment of the highest degree of freedom: freedom from the pressures of society and the fluctuations of fashion, freedom from the desires of the self and the whispers of Satan, and reaching the freedom of submission to the wisdom of the All-Knowing Creator. It is a call to live a purposeful, conscious, and strong life, based on being pleased with Allah as a Lord, with Islam as a religion, and with Muhammad (ﷺ) as a Prophet and Messenger.</p>
+            </section>
+        </section>
+        <!-- END: HALAL & HARAM GUIDE -->
+
+        <div class="mind-map-container">
+            <h3 class="mind-map-title">Mind Map: Daily Life Guide</h3>
+            <div class="mind-map-core">Living Islam with Confidence</div>
+            <div class="mind-map-branches">
+                <div class="mind-map-branch"><h4>Food</h4><p>Know the forbidden, check labels, be cautious with meat.</p></div>
+                <div class="mind-map-branch"><h4>Social</h4><p>Lower gaze, no seclusion, no dating, avoid non-Muslim holidays.</p></div>
+                <div class="mind-map-branch"><h4>Fun</h4><p>Permissible recreation is good, avoid music, vet game content.</p></div>
+                <div class="mind-map-branch"><h4>Appearance</h4><p>Dress for modesty and identity, fulfill Hijab conditions.</p></div>
+            </div>
+        </div>
+
+        <!-- START: FRIENDSHIP GUIDE -->
+        <section id="friendship-guide">
+            <h2>"The Companion Before the Path" - How to Choose Righteous Companionship in Your Life</h2>
+            <p>Welcome to this important lesson that addresses a topic that touches your daily life and shapes your future in this world and the Hereafter: Friendship. Choosing your friends is not just a social matter; it is a fundamental decision that defines your identity and preserves your religion, especially as you live in an environment full of challenges.</p>
+            
+            <section id="friendship-impact">
+                <h3>Part One: The Fateful Impact of Friendship in Islam</h3>
+                <h4>1.2. "A Man is on the Religion of his Close Friend": You are a Version of Whom You Befriend</h4>
+                <p>There is a golden rule set for us by the Prophet Muhammad (ﷺ), which is the cornerstone of our understanding of friendship: «<span class="arabic">الرَّجُلُ عَلَى دِينِ خَلِيلِهِ، فَلْيَنْظُرْ أَحَدُكُمْ مَنْ يُخَالِلُ</span>» ("Ar-rajulu 'ala dini khalilihi, falyanzur ahadukum man yukhalil" - "A man is upon the religion of his close friend, so let each of you look at whom he befriends.").</p>
+                <p>The meaning of this hadith is much deeper than it may seem. The word "religion" (din) here does not only mean creed but includes your entire "way of life": your habits, your character, your priorities, and even your worldview. A friend "steals" from his friend's character without realizing it, and his influence seeps into every part of your personality until you become similar to him.</p>
+                <p>To realize the gravity of this choice, the Quran presents us with a terrifying scene from the Day of Judgment, embodying an eternal regret caused by choosing a bad friend. Imagine this scene:</p>
+                <blockquote>﴿ <span class="arabic">وَيَوْمَ يَعَضُّ الظَّالِمُ عَلَىٰ يَدَيْهِ يَقُولُ يَا لَيْتَنِي اتَّخَذْتُ مَعَ الرَّسُولِ سَبِيلًا * يَا وَيْلَتَىٰ لَيْتَنِي لَمْ أَتَّخِذْ فُلَانًا خَلِيلًا * لَقَدْ أَضَلَّنِي عَنِ الذِّكْرِ بَعْدَ إِذْ جَاءَنِي وَكَانَ الشَّيْطَانُ لِلْإِنْسَانِ خَذُولًا</span> ﴾ <br> ({Wa yawma ya'addu adh-dhalimu 'ala yadayhi yaqulu ya laytani ittakhadhtu ma'ar-rasuli sabila * Ya waylata laytani lam attakhidh fulanan khalila * Laqad adallani 'anidh-dhikri ba'da idh ja’ani wa kana ash-shaytanu lil-insani khadhula} - "And the Day the wrongdoer will bite on his hands, he will say, 'Oh, I wish I had taken with the Messenger a way. * Oh, woe to me! I wish I had not taken so-and-so as a close friend. * He led me astray from the remembrance after it had come to me. And ever is Satan, to man, a deserter.'") (Surah Al-Furqan: 27-29).</blockquote>
+                <p>These verses tell a true story of a man named 'Uqbah ibn Abi Mu'ayt, who was on the verge of accepting Islam. But his friend, Umayyah ibn Khalaf, pressured and threatened him until he apostatized, and he died upon disbelief. Look at how a single friend can lead you to eternal loss.</p>
+                
+                <h4>1.3. Friendships of this World, Balances of the Hereafter</h4>
+                <p>The decision of friendship is not one that ends with the end of this life. Its impact extends to be placed on the scale of your good deeds or sins on the Day of Judgment. The Holy Quran tells us of two possible outcomes for all our friendships:</p>
+                <p><strong>Outcome One: Eternal Enmity.</strong> Allah the Exalted says: ﴿ <span class="arabic">الْأَخِلَّاءُ يَوْمَئِذٍ بَعْضُهُمْ لِبَعْضٍ عَدُوٌّ إِلَّا الْمُتَّقِينَ</span> ﴾ ({Al-akhilla'u yawma'idhin ba'duhum li-ba'din 'aduwwun illa al-muttaqin} - "Close friends, that Day, will be enemies to each other, except for the righteous") (Surah Az-Zukhruf: 67). This verse reveals a shocking truth: every friendship not built upon the foundation of fearing Allah and His obedience will inevitably turn into hatred and enmity on the Day of Judgment, where each friend will blame the other for being the cause of his misguidance.</p>
+                <p><strong>Outcome Two: The Greatest Prize: The Shade of Allah's Throne.</strong> This is the reward promised to friends who loved each other for the sake of Allah. In the hadith of the seven whom Allah will shade in His shade on the Day when there is no shade but His, the Prophet (ﷺ) mentioned among them: «<span class="arabic">...وَرَجُلَانِ تَحَابَّا فِي اللَّهِ اجْتَمَعَا عَلَيْهِ وَتَفَرَّقَا عَلَيْهِ</span>» ("...and two men who love each other for Allah's sake, meeting for that and parting upon that."). Imagine your friendship being the reason that Allah Himself protects you from the horrors of the Day of Judgment.</p>
+            </section>
+            
+            <section id="friendship-compass">
+                <h3>Part Two: The Friend's Compass: Prophetic Criteria for Selection</h3>
+                <h4>2.1. The Carrier of Musk and the Blower of Bellows: A Prophetic Analogy for Life</h4>
+                <p>The Prophet (ﷺ) gave us a brilliant analogy that summarizes the effect a friend has on you, an example you will never forget. He (ﷺ) said:</p>
+                <blockquote>«<span class="arabic">إِنَّمَا مَثَلُ الجَلِيسِ الصَّالحِ والجَلِيسِ السّوءِ كَحَامِلِ الْمِسْكِ وَنَافِخِ الْكِير، فَحَامِلُ الْمِسْكِ إمَّا أنْ يُحْذِيَكَ وَإِمَّا أنْ تَبْتَاعَ مِنْهُ وَإِمَّا أَنْ تَجِدَ مِنْهُ رِيحًا طَيِّبَةً، وَنَافِخُ الكِيرِ إِمَّا أَنْ يُحْرِقَ ثِيَابَكَ وَإِمَّا أَنْ تَجِدَ رِيحًا خَبِيثَةً</span>» <br> "The parable of a good companion and a bad companion is that of a carrier of musk and a blower of bellows (i.e., a blacksmith). As for the carrier of musk, he will either give you some, or you will buy some from him, or you will smell a pleasant fragrance from him. As for the blower of bellows, he will either burn your clothes, or you will smell a foul odor from him."</blockquote>
+                <p>This hadith teaches us a profound lesson: there is no such thing as a "neutral friend." Every session with a friend is an investment with a guaranteed return, either profit or loss. Every person you accompany is either an investment in your paradise or an investment in your loss.</p>
+                
+                <h4>2.2. The Shari'ah Checklist for a Righteous Friend</h4>
+                <p>Here is a practical list based on the Quran, the Sunnah, and the sayings of the Salaf to help you choose your friends:</p>
+                <ul>
+                    <li><strong>Religion and Piety (Taqwa):</strong> This is the non-negotiable foundation. Your friend must be a believer who fears and is conscious of Allah. The evidence is the saying of the Prophet (ﷺ): «<span class="arabic">لَا تُصَاحِبْ إِلَّا مُؤْمِنًا، وَلَا يَأْكُلْ طَعَامَكَ إِلَّا تَقِيٌّ</span>» ("Do not accompany anyone but a believer, and let no one eat your food except one who is pious.").</li>
+                    <li><strong>Sound Intellect:</strong> He should be wise and rational, not foolish. A foolish friend might want to benefit you but ends up harming you out of his ignorance.</li>
+                    <li><strong>Good Character:</strong> Choose a friend who is calm, patient, and humble. A person with bad character lives in torment and torments those around him.</li>
+                    <li><strong>Loyalty and Keeping Secrets:</strong> A true friend honors your bond, keeps your secrets, and defends you in your absence.</li>
+                    <li><strong>The Sincere Advisor:</strong> He is your mirror who shows you your flaws with sincerity and kindness to help you improve, not to expose and belittle you. The Prophet (ﷺ) said: «<span class="arabic">الْمُؤْمِنُ مِرْآةُ أَخِيهِ</span>» ("The believer is the mirror of his brother.").</li>
+                </ul>
+                
+                <h4>2.3. Warning Signs: Traits to Stay Away From</h4>
+                <p>Just as you search for good qualities, beware of these "red flags" that tell you to stay away from:</p>
+                <ul>
+                    <li>The Sinner (Fasiq) and the Innovator (Mubtadi')</li>
+                    <li>The Liar, the Tale-Carrier, and the Backbiter</li>
+                    <li>The Foolish and Quick-to-Anger</li>
+                    <li>The Time-Waster</li>
+                </ul>
+                <table>
+                    <caption>Comparison Table: The Musk Carrier vs. The Bellows Blower</caption>
+                    <thead>
+                        <tr>
+                            <th>Trait</th>
+                            <th>Musk Carrier (Righteous Friend)</th>
+                            <th>Bellows Blower (Bad Friend)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Effect on Your Religion</td><td>Reminds you of Allah, encourages you to pray and do good.</td><td>Makes you forget the remembrance of Allah, encourages you to sin.</td></tr>
+                        <tr><td>Your Reputation</td><td>You become known for good because of his company.</td><td>Your reputation is damaged, and people assume you are like him.</td></tr>
+                        <tr><td>His Advice</td><td>Sincere and in private, like a mirror.</td><td>Either false flattery or exposure and backbiting behind your back.</td></tr>
+                        <tr><td>In Your Absence</td><td>Defends your honor and keeps your secrets.</td><td>Exposes your faults and speaks ill of you.</td></tr>
+                        <tr><td>Time of Hardship</td><td>A source of support and aid.</td><td>Abandons you and lets you down.</td></tr>
+                        <tr><td>Final Outcome</td><td>In the shade of Allah's Throne.</td><td>Enmity on the Day of Judgment.</td></tr>
+                    </tbody>
+                </table>
+            </section>
+            
+            <section id="friendship-real-world">
+                <h3>Part Three: Friendship in the Real World: Challenges and Solutions</h3>
+                <h4>3.1. Workshop: "What Would You Do If...?"</h4>
+                <div class="activity-box">
+                    <p><strong>Scenario 1 (Peer Pressure - Events):</strong> Your non-Muslim friend at school, who is a nice person, invites you to his birthday party on a Friday night. You know there will be loud music, mixing of genders, and possibly forbidden things. He says, "Come on, just for a little while! It's my birthday!" What do you do? And how do you politely and wisely decline?</p>
+                    <p><strong>Scenario 2 (Peer Pressure - Cheating):</strong> You are in a difficult class, and your Muslim friend, who prays with you, suggests that you cheat together on the exam. He says, "Everyone does it, and the teacher is unfair. Allah is Forgiving and Merciful; we'll repent later." How do you respond and advise him?</p>
+                    <p><strong>Scenario 3 (Mocking Rituals):</strong> You are with your friends at the mall, and it's time for the Maghrib prayer. You tell them you want to go pray. One of them laughs and says, "Are you serious? Just pray later. Don't be an extremist!" What do you say and do in that moment?</p>
+                    <p><strong>Scenario 4 (The Non-Practicing Friend):</strong> You have a friend at the masjid whose company you enjoy, but you know that outside the masjid, he vapes and uses foul language. He doesn't do it in front of you, but you know the truth about him. How do you deal with him and advise him without losing him or being influenced by him?</p>
+                </div>
+
+                <h4>3.2. A Guide to Dealing with Peers</h4>
+                <p>Here are some clear jurisprudential guidelines to help you handle these difficult situations with wisdom:</p>
+                <ul>
+                    <li><strong>Dealing with a Sinning Muslim:</strong> The obligation is to advise gently and in private. Hate the sin, not the sinner. It is forbidden to remain in a gathering where sin is committed if they do not stop after you speak out. Boycotting (Hajr) is a last resort, used only if it may lead to reform.</li>
+                    <li><strong>The Limits of Joking:</strong> Joking is permissible but has limits: It must be truthful, must not involve mockery or insults, must not cause fear or harm, and must be in moderation.</li>
+                </ul>
+                
+                <h4>3.3. Building Your Fortress: Where and How to Find Righteous Companionship</h4>
+                <p>You might ask, "Where do I find these righteous friends?" The challenge is significant, especially in public schools. The practical solution is to look for them in their natural environment: the Masjid. Make the masjid your "third space" after home and school. Don't just go to pray and leave; make it the center of your social and spiritual life.</p>
+                <p>Practical Strategies for Forming Righteous Friendships:</p>
+                <ul>
+                    <li>Join the youth group at the masjid: This is the most important step.</li>
+                    <li>Volunteer at masjid events.</li>
+                    <li>Attend circles and classes (Halaqat).</li>
+                    <li>Join the Muslim Student Association (MSA) in high school or college.</li>
+                    <li>Take the initiative: Don't wait. Smile, say Salam, and introduce yourself.</li>
+                </ul>
+                <h3>Conclusion: Be the Friend You Are Looking For</h3>
+                <p>In the end, we want to shift your focus from merely "looking for a righteous friend" to "being a righteous friend yourself." All the qualities we have talked about—piety, good character, loyalty, sincere advice—are qualities that you should strive to develop in yourself first. Be the "carrier of musk" in your circle. Be the one who initiates the greeting of Salam, who invites his friends to pray, who defends them in their absence, and who offers advice with gentleness and love.</p>
+                <blockquote>We conclude with a profound piece of wisdom from Imam al-Shafi'i (may Allah have mercy on him), who said to his student: "O Yunus, if you have a friend, hold on to him with your hand, for making a friend is difficult and parting with him is easy."</blockquote>
+                <p>We ask Allah to bless us and you with righteous companionship that takes us by the hand to His Paradise and His pleasure.</p>
+            </section>
+        </section>
+        <!-- END: FRIENDSHIP GUIDE -->
+
+        <footer>
+            <p style="text-align:center; margin-top: 4rem; color: #888;">End of Workshop. May Allah grant us all purity, steadfastness, and righteous companionship.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeSwitch = document.getElementById('theme-switch');
+            const body = document.body;
+
+            // Check for saved theme in localStorage
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+            }
+
+            themeSwitch.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                
+                // Save theme preference to localStorage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Smooth scroll for nav links 
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
